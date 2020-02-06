@@ -11,7 +11,7 @@ class BlogController extends \BaseController {
 
 	public function create()
 	{
-		Return View::make('blogs.create');
+		Return View::make('blogs.create', array('disabled'=>''));
 	}
 
 	public function store()
@@ -47,10 +47,11 @@ class BlogController extends \BaseController {
 				->orWhere('id', '=', $slug)	
 				->firstOrFail();
 
-		if(Auth::id() != $blog->user_id) 
+		if(Auth::id() == $blog->user_id || Blog::IsAdminOrChiefEditor()) {
+			return View::make('blogs.edit', array('disabled'=>'disabled'))->withBlog($blog);
+		} else {
 			return Redirect::to('blogs')->with('message','Only the owner can edit this blog.');
-
-		return View::make('blogs.edit')->withBlog($blog);
+		}	
 	}
 
 	public function update($slug)

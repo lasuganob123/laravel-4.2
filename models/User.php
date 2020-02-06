@@ -20,6 +20,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'firstname',
 		'lastname',
 		'email',
+		'user_type',
 		'password'
 	];
 
@@ -43,6 +44,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function blog()
     {
         return $this->hasMany('Blog');
-    }
+	}
+	public function isAdmin() {
+		if($this->user_type == 'admin') {
+			return true;
+		}
+	}
 
 }

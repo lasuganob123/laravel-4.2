@@ -16,7 +16,6 @@ class CreateBlogsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('user_id');
-			$table->integer('user_type');
 			$table->text('slug');
 			$table->text('title');
 			$table->string('content');

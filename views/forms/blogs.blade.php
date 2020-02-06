@@ -12,12 +12,7 @@
 <!-- emai -->
 <div class="form-group">
     {{ Form::label('slug', 'Slug') }}
-    
-    @if($disable)
-        {{ Form::text('slug', null, $attributes = array('class'=>'form-control','disabled'=>'disabled')) }}
-    @else
-        {{ Form::text('slug', null, $attributes = array('class'=>'form-control')) }}
-    @endif
+    {{ Form::text('slug', null, $attributes = array('class'=>'form-control','disabled'=>$disabled)) }}
 </div>
 
 <!-- password -->

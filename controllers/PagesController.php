@@ -43,7 +43,7 @@ class PagesController extends \BaseController {
 	public function postSignin() {
 		if (Auth::attempt(array('email'=>Input::get('email'), 'password'=>Input::get('password')))) {
 
-			return Redirect::to('users')->with('message', 'You are now logged in!');
+			return Redirect::to('blogs')->with('message', 'You are now logged in!');
 		} else {
 			return Redirect::back()
 				->with('message', 'Your username/password combination was incorrect')
@@ -52,6 +52,6 @@ class PagesController extends \BaseController {
 	}
 	public function getLogout() {
 		Auth::logout();
-		return Redirect::to('login')->with('message', 'Your are now logged out!');
+		return Redirect::to('blogs')->with('message', 'Your are now logged out!');
 	}
 }

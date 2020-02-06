@@ -52,7 +52,14 @@ class UserController extends \BaseController {
 	{
 		$user = User::findOrFail($id);
 
-    	return View::make('users.edit')->withUser($user);
+		$hadAccess = (Auth::user()->isAdmin()) ? true : false;
+
+		if($hadAccess || Auth::id() == $user->id) {
+			return View::make('users.edit')->withUser($user);
+		} else {
+			return Redirect::to('users')
+				->with('message','You are not allowed to edit other user.');
+		}
 	}
 
 	public function update($id)

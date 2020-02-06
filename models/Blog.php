@@ -13,7 +13,6 @@ class Blog extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $fillable = [
 		'user_id',
-		'user_type',
 		'slug',
         'title',
         'content'
@@ -35,4 +34,12 @@ class Blog extends Eloquent implements UserInterface, RemindableInterface {
         return $this->belongsTo('User');
     }
 
+    public static function IsAdminOrChiefEditor() {
+        $currUser = Auth::user();
+		if($currUser->user_type == 'admin' || $currUser->user_type == 'chief-editor') {
+			return true;
+        }
+        // if($this->user_type == 'admin' || $this->user_type == 'chief-editor') 
+        //     return true;
+	}
 }
