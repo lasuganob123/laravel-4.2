@@ -15,6 +15,9 @@ class UserController extends \BaseController {
 	public function index() {
 		$users = User::latest()->get();
 
+		if(!Auth::user()->isAdmin()) 
+			return Redirect::to('/blogs')->with('message','You don\'t have access to this page.');
+
 		return View::make('users.users', array('users' => $users));
 	}
 	public function create() {

@@ -5,6 +5,10 @@
         <small class="text-muted">Posted by: {{$blog->user->firstname}} {{$blog->user->lastname}}</small>
         |
         <small class="text-muted">Posted {{$blog->created_at->diffForHumans()}}</small>
+        <br>
+        @foreach($blog->tags as $tag)
+            <small class="p-1 bg-secondary text-white"><i>{{$tag->name}}</i></small>
+        @endforeach
     <hr>
     <blockquote class="blockquote">
         <p class="mb-0">{{$blog->content}}</p>

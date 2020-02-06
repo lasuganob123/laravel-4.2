@@ -25,6 +25,9 @@ class BlogController extends \BaseController {
 			$blog->slug = Input::get('slug');
 			$blog->content = Input::get('content');
 			$blog->save();
+
+			//---Temporary / saving with sample tags
+        	$blog->tags()->attach(array(1,2));
           
             return Redirect::to('blogs')->with('message', 'Blog entry successfully posted!');
         } else {

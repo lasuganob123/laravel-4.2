@@ -14,15 +14,17 @@
 <body>
     <header>
         <!-- As a heading -->
-        <nav class="nav navbar justify-content-end navbar-light bg-light">
-            <ul class="nav justify-content-end">
-                @if(!Auth::check())
-                    <li class="nav-item"><a href="{{ action('PagesController@register'); }}" class="nav-link">Register</a></li> 
-                    <li class="nav-item"><a href="{{ action('PagesController@login'); }}" class="nav-link">Login</a></li> 
-                @else
-                    <li class="nav-item"><a href="{{ action('PagesController@getLogout'); }}" class="nav-link">Logout</a></li> 
-                @endif
-            </ul>
+        <nav class="navbar navbar-dark bg-light mb-3">
+            @if(Auth::check())
+                Hi, {{Auth::user()->firstname}}
+            @endif
+            
+            @if(!Auth::check())
+                <a href="{{ action('PagesController@register'); }}" class="btn btn-primary">Register</a>
+                <a href="{{ action('PagesController@login'); }}" class="btn btn-success">Login</a>
+            @else
+                <a href="{{ action('PagesController@getLogout'); }}" class="btn btn-dark">Logout</a>
+            @endif
         </nav>
     </header>
     <div class="container">

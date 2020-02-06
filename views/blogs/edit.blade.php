@@ -8,7 +8,7 @@
         'action' => ['BlogController@update',$blog->slug]
     ]) }}
 
-        @include('forms.blogs',['submitButtonText'=>'Update Blog', 'disable'=>true])
+        @include('forms.blogs',['submitButtonText'=>'Update Blog', 'disabled'=>'disabled'])
 
     {{ Form::close() }}
 

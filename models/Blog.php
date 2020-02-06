@@ -20,7 +20,7 @@ class Blog extends Eloquent implements UserInterface, RemindableInterface {
 
     public static $addRules = [
         'title' => 'required|min:5',
-		'slug' => 'required|min:5|unique:blogs|apha_dash',
+		'slug' => 'required|min:5|unique:blogs|alpha_dash',
         'content' => 'required|min:20',
     ];
 
@@ -39,7 +39,11 @@ class Blog extends Eloquent implements UserInterface, RemindableInterface {
 		if($currUser->user_type == 'admin' || $currUser->user_type == 'chief-editor') {
 			return true;
         }
-        // if($this->user_type == 'admin' || $this->user_type == 'chief-editor') 
-        //     return true;
-	}
+        
+    }
+    
+    public function tags()
+    {
+        return $this->belongsToMany('Tag');
+    }
 }
