@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'larpractice',
 			'username'  => 'root',
-			'password'  => '',
+			'password'  => 'nerubia1234',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

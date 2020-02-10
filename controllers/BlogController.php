@@ -11,7 +11,8 @@ class BlogController extends \BaseController {
 
 	public function create()
 	{
-		Return View::make('blogs.create', array('disabled'=>''));
+		$tags = Tag::lists('name','id');
+		Return View::make('blogs.create', array('disabled'=>'','tags'=>$tags));
 	}
 
 	public function store()
@@ -26,8 +27,7 @@ class BlogController extends \BaseController {
 			$blog->content = Input::get('content');
 			$blog->save();
 
-			//---Temporary / saving with sample tags
-        	$blog->tags()->attach(array(1,2));
+        	$blog->tags()->attach(Input::get('tag_list'));
           
             return Redirect::to('blogs')->with('message', 'Blog entry successfully posted!');
         } else {
@@ -49,9 +49,10 @@ class BlogController extends \BaseController {
 		$blog = Blog::where('slug', '=', $slug)
 				->orWhere('id', '=', $slug)	
 				->firstOrFail();
+		$tags = Tag::lists('name','id');				
 
 		if(Auth::id() == $blog->user_id || Blog::IsAdminOrChiefEditor()) {
-			return View::make('blogs.edit', array('disabled'=>'disabled'))->withBlog($blog);
+			return View::make('blogs.edit', array('disabled'=>'disabled','tags'=>$tags))->withBlog($blog);
 		} else {
 			return Redirect::to('blogs')->with('message','Only the owner can edit this blog.');
 		}	
@@ -68,6 +69,8 @@ class BlogController extends \BaseController {
 
 			$blog->fill(Request::except('slug'))
 					->save();
+			
+			$blog->tags()->sync(Input::get('tag_list'));
 
 			return Redirect::to('blogs')
 				->with('message', 'Updated!');
@@ -92,6 +95,5 @@ class BlogController extends \BaseController {
 
 		return Redirect::to('blogs')->with('message','Successfully deleted');
 	}
-
 
 }
